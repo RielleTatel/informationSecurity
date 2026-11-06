@@ -14,6 +14,8 @@ You know what they want.
 
 You know what you are supposed to protect.
 
+> "But after going through our lesson, I realized that a robber does not always look like a robber."
+
 Sometimes, it looks like a hacker.
 
 Sometimes, it looks like a natural disaster.

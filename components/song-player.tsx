@@ -1,13 +1,16 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { Music2, Pause, Play, Volume2, VolumeX, X } from 'lucide-react'
+import { useEffect, useId, useRef, useState } from 'react'
+import { ChevronDown, Music2, Pause, Play, Square, Volume2, VolumeX } from 'lucide-react'
 import { loadYouTubePlayer, type YouTubePlayer } from '@/lib/youtube-player'
 import styles from './song-player.module.css'
 
 type Status = 'idle' | 'loading' | 'ready' | 'error'
 
 export function SongPlayer({ title, artist, videoId }: { title: string; artist: string; videoId: string }) {
+  const [open, setOpen] = useState(false)
+  const panelId = useId()
+  const toggleButton = useRef<HTMLButtonElement>(null)
   const [enabled, setEnabled] = useState(false)
   const [status, setStatus] = useState<Status>('idle')
   const [playing, setPlaying] = useState(false)
@@ -126,6 +129,25 @@ export function SongPlayer({ title, artist, videoId }: { title: string; artist: 
     setNotice('')
   }
 
+  // Hiding the panel pauses the video, so it is never playing out of sight.
+  function hide() {
+    player.current?.pauseVideo()
+    setOpen(false)
+    toggleButton.current?.focus()
+  }
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      player.current?.pauseVideo()
+      setOpen(false)
+      toggleButton.current?.focus()
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
+
   function togglePlayback() {
     if (!player.current) return
     if (playing) player.current.pauseVideo()
@@ -142,35 +164,53 @@ export function SongPlayer({ title, artist, videoId }: { title: string; artist: 
   }
 
   return (
-    <section className={styles.player} data-active={enabled} aria-label="Song accompaniment">
-      <div className={styles.heading}>
-        <Music2 size={18} aria-hidden="true" />
-        <p>Listen while you read</p>
-        {enabled && <button className={styles.close} type="button" onClick={stop} aria-label="Stop music and close player" title="Stop music"><X size={18} aria-hidden="true" /></button>}
-      </div>
-      <div className={styles.track}>
-        <strong>{title}</strong><span>{artist}</span>
-      </div>
-      {!enabled ? (
-        <button className={styles.start} type="button" onClick={start} aria-label={`Play ${title} by ${artist}`}><Play size={16} aria-hidden="true" />Play song</button>
-      ) : (
-        <>
-          <div className={styles.video} ref={host} />
-          <div className={styles.controls}>
-            <button type="button" onClick={togglePlayback} disabled={status !== 'ready'} aria-label={playing ? 'Pause song' : 'Play song'}>
-              {playing ? <Pause size={16} aria-hidden="true" /> : <Play size={16} aria-hidden="true" />}
-              {playing ? 'Pause' : 'Play'}
-            </button>
-            <button type="button" onClick={toggleMute} disabled={status !== 'ready'} aria-label={muted ? 'Unmute song' : 'Mute song'}>
-              {muted ? <VolumeX size={17} aria-hidden="true" /> : <Volume2 size={17} aria-hidden="true" />}
-              {muted ? 'Unmute' : 'Mute'}
-            </button>
-          </div>
-          <p className={styles.status} role="status">{status === 'loading' ? 'Loading the song…' : notice || (status === 'ready' ? (muted ? 'Sound is muted.' : playing ? 'Playing at your chosen volume.' : 'Music is paused.') : '')}</p>
-          {status === 'error' && <button type="button" className={styles.retry} onClick={stop}>Reset player to try again</button>}
-        </>
-      )}
-      <a className={styles.external} href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" rel="noopener">Open song on YouTube</a>
-    </section>
+    <div className={styles.dock}>
+      <section id={panelId} className={styles.player} hidden={!open} data-active={enabled} aria-label={`Music player: ${title} by ${artist}`}>
+        <div className={styles.heading}>
+          <Music2 size={16} aria-hidden="true" />
+          <p>Listen while you read</p>
+          <button className={styles.close} type="button" onClick={hide} aria-label="Hide music player" title="Hide player"><ChevronDown size={18} aria-hidden="true" /></button>
+        </div>
+        <div className={styles.track}>
+          <strong>{title}</strong><span>{artist}</span>
+        </div>
+        {!enabled ? (
+          <button className={styles.start} type="button" onClick={start} aria-label={`Play ${title} by ${artist}`}><Play size={16} aria-hidden="true" />Play song</button>
+        ) : (
+          <>
+            <div className={styles.video} ref={host} />
+            <div className={styles.controls}>
+              <button type="button" onClick={togglePlayback} disabled={status !== 'ready'} aria-label={playing ? 'Pause song' : 'Play song'}>
+                {playing ? <Pause size={16} aria-hidden="true" /> : <Play size={16} aria-hidden="true" />}
+                {playing ? 'Pause' : 'Play'}
+              </button>
+              <button type="button" onClick={toggleMute} disabled={status !== 'ready'} aria-label={muted ? 'Unmute song' : 'Mute song'}>
+                {muted ? <VolumeX size={16} aria-hidden="true" /> : <Volume2 size={16} aria-hidden="true" />}
+                {muted ? 'Unmute' : 'Mute'}
+              </button>
+              <button type="button" onClick={stop} aria-label="Stop the song and close the video">
+                <Square size={14} aria-hidden="true" />Stop
+              </button>
+            </div>
+            <p className={styles.status} role="status">{status === 'loading' ? 'Loading the song…' : notice || (status === 'ready' ? (muted ? 'Sound is muted.' : playing ? 'Playing.' : 'Paused.') : '')}</p>
+            {status === 'error' && <button type="button" className={styles.retry} onClick={stop}>Reset player to try again</button>}
+          </>
+        )}
+        <a className={styles.external} href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" rel="noopener">Open song on YouTube</a>
+      </section>
+      <button
+        ref={toggleButton}
+        type="button"
+        className={styles.toggle}
+        data-playing={playing}
+        aria-expanded={open}
+        aria-controls={panelId}
+        aria-label={open ? 'Hide music player' : `Open music player: ${title} by ${artist}`}
+        title={open ? 'Hide music player' : `Listen to ${title}`}
+        onClick={() => (open ? hide() : setOpen(true))}
+      >
+        {playing ? <span className={styles.bars} aria-hidden="true"><i /><i /><i /></span> : <Music2 size={18} aria-hidden="true" />}
+      </button>
+    </div>
   )
 }

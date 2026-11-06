@@ -1,18 +1,32 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, Manrope } from 'next/font/google'
+import { Cormorant_Garamond, Inter, Playfair_Display, Caveat } from 'next/font/google'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
-  weight: ['400', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
   subsets: ['latin'],
   variable: '--font-cormorant',
 })
 
-const manrope = Manrope({
+const inter = Inter({
   weight: ['400', '500', '600'],
   subsets: ['latin'],
-  variable: '--font-manrope',
+  variable: '--font-inter',
+})
+
+const playfair = Playfair_Display({
+  weight: ['400', '600', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-playfair',
+})
+
+const caveat = Caveat({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-caveat',
 })
 
 export const metadata: Metadata = {
@@ -38,8 +52,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light',
-  themeColor: '#f4f6f8',
+  colorScheme: 'dark',
+  themeColor: '#0d0b08',
 }
 
 export default function RootLayout({
@@ -50,7 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`light ${cormorant.variable} ${manrope.variable}`}
+      className={`dark ${cormorant.variable} ${inter.variable} ${playfair.variable} ${caveat.variable}`}
     >
       <body className="antialiased bg-background text-foreground">
         {children}

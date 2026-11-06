@@ -4,7 +4,7 @@ import { join } from 'node:path'
 export type ReflectionNumber = 1 | 2 | 3 | 4
 
 export type PaperBlock =
-  | { type: 'paragraph' | 'quote' | 'subheading'; text: string }
+  | { type: 'paragraph' | 'quote' | 'statement' | 'subheading'; text: string }
   | { type: 'list'; items: string[] }
 
 const reflections = {
@@ -71,7 +71,8 @@ export function getReflection(number: ReflectionNumber) {
     join(process.cwd(), 'content', 'reflections', `reflection-${number}.md`),
     'utf8',
   )
-  // The papers use a title and byline followed by a small, trusted Markdown subset.
+  // The papers use a title and byline followed by a small, trusted Markdown subset:
+  // ## section, ### subheading, > quote, *centred statement*, numbered list, paragraph.
   const blocks = markdown.trim().split(/\n\s*\n/).slice(2)
   const introduction: PaperBlock[] = []
   const sections: { title: string; id: string; blocks: PaperBlock[] }[] = []
@@ -89,12 +90,13 @@ export function getReflection(number: ReflectionNumber) {
       const destination = current ? current.blocks : introduction
       if (block.startsWith('### ')) destination.push({ type: 'subheading', text: block.slice(4) })
       else if (block.startsWith('> ')) destination.push({ type: 'quote', text: block.slice(2) })
+      else if (/^\*[^*][\s\S]*\*$/.test(block)) destination.push({ type: 'statement', text: block.slice(1, -1) })
       else if (/^\d+\. /.test(block)) destination.push({ type: 'list', items: block.split('\n').map(line => line.replace(/^\d+\. /, '')) })
       else destination.push({ type: 'paragraph', text: block })
     }
   }
 
-  const wordCount = blocks.filter(block => !block.startsWith('## ')).join(' ').split(/\s+/).length
+  const wordCount = blocks.filter(block => !block.startsWith('## ')).join(' ').split(/\s+/).filter(Boolean).length
 
   return {
     ...reflections[number],
