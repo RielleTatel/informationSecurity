@@ -1,0 +1,28 @@
+.player { background: #fff; color: #202120; border: 1px solid #d9dfe3; border-radius: 12px; padding: 20px; box-shadow: 0 6px 20px #173e5610; }
+.heading { display: flex; align-items: center; gap: 9px; color: var(--accent); }
+.heading p { font-size: .78rem; font-weight: 600; }
+.close { display: grid; place-items: center; width: 44px; height: 44px; margin: -12px -12px -12px auto; border-radius: 50%; }
+.track { display: flex; flex-direction: column; gap: 3px; margin: 20px 0 16px; }
+.track strong { font: 600 1.65rem/1.1 var(--font-cormorant); }
+.track span { color: #59636b; font-size: .78rem; }
+.player button { cursor: pointer; }
+.player button:disabled { cursor: wait; opacity: .5; }
+.start { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 44px; width: 100%; padding: 10px 16px; background: var(--accent); color: #fff; border-radius: 6px; font-size: .8rem; font-weight: 600; }
+.start:hover { filter: brightness(.92); }
+.external { display: block; width: fit-content; padding: 12px 0 0; color: #59636b; font-size: .72rem; text-decoration: underline; text-underline-offset: 3px; }
+.video { height: 200px; min-width: 200px; margin: 0 -8px; background: #111; }
+.video iframe { display: block; height: 200px; width: 100%; border: 0; }
+.controls { display: flex; justify-content: space-between; gap: 8px; margin-top: 12px; }
+.controls button { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; flex: 1; font-size: .8rem; border-radius: 5px; border: 1px solid #d9dfe3; }
+.controls button:hover:not(:disabled), .close:hover { background: #edf1f4; }
+.status { color: #59636b; font-size: .7rem; line-height: 1.6; margin-top: 10px; }
+.retry { display: block; text-decoration: underline; margin-top: 10px; font-size: .75rem; color: var(--accent); }
+.player :is(button, a):focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (max-width: 800px) {
+  .player[data-active='true'] { padding: 12px 16px; }
+  .player[data-active='true'] .heading { margin-bottom: 10px; }
+  .player[data-active='true'] .track { display: none; }
+  .player[data-active='true'] .status { margin-top: 6px; }
+  .player[data-active='true'] .external { padding-top: 6px; }
+  .player[data-active='true'] .controls { margin-top: 8px; }
+}

@@ -1,5 +1,1 @@
-import { Essay } from '@/components/essay'
-
-export default function Page() {
-  return <Essay />
-}
+export { default, metadata } from './reflection-1/page'

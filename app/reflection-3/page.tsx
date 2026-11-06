@@ -1,2 +1,14 @@
-import { ComingSoon } from '@/components/coming-soon'
-export default function ReflectionThreePage() { return <ComingSoon number="03" /> }
+import type { Metadata } from 'next'
+import { ReflectionPaper } from '@/components/reflection-paper'
+import { getReflection } from '@/lib/reflections'
+
+const reflection = getReflection(3)
+
+export const metadata: Metadata = {
+  title: `${reflection.title}: ${reflection.subtitle} | Gabrielle Tatel`,
+  description: reflection.description,
+}
+
+export default function ReflectionThreePage() {
+  return <ReflectionPaper reflection={reflection} />
+}

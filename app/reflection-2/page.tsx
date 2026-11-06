@@ -1,5 +1,14 @@
-import ReflectionTwoPage from '@/components/reflection-2/page'
+import type { Metadata } from 'next'
+import { ReflectionPaper } from '@/components/reflection-paper'
+import { getReflection } from '@/lib/reflections'
 
-export default function Page() {
-  return <ReflectionTwoPage />
+const reflection = getReflection(2)
+
+export const metadata: Metadata = {
+  title: `${reflection.title}: ${reflection.subtitle} | Gabrielle Tatel`,
+  description: reflection.description,
+}
+
+export default function ReflectionTwoPage() {
+  return <ReflectionPaper reflection={reflection} />
 }

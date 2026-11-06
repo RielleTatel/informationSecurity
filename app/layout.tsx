@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, Inter, Playfair_Display, Caveat } from 'next/font/google'
+import { Cormorant_Garamond, Manrope } from 'next/font/google'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -9,28 +9,15 @@ const cormorant = Cormorant_Garamond({
   variable: '--font-cormorant',
 })
 
-const inter = Inter({
+const manrope = Manrope({
   weight: ['400', '500', '600'],
   subsets: ['latin'],
-  variable: '--font-inter',
-})
-
-const playfair = Playfair_Display({
-  weight: ['400', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-playfair',
-})
-
-const caveat = Caveat({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  variable: '--font-caveat',
+  variable: '--font-manrope',
 })
 
 export const metadata: Metadata = {
-  title: 'Backburner: Where Heartbreak Meets Security',
-  description: 'A philosophical exploration connecting NIKI\'s lyrics to information security principles.',
-  generator: 'v0.app',
+  title: 'Reflections on Information Security | Gabrielle Tatel',
+  description: 'Four personal reflections connecting music, information security, risk assessment, and the work of protecting what matters.',
   icons: {
     icon: [
       {
@@ -51,11 +38,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+  colorScheme: 'light',
+  themeColor: '#f4f6f8',
 }
 
 export default function RootLayout({
@@ -66,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${cormorant.variable} ${inter.variable} ${playfair.variable} ${caveat.variable}`}
+      className={`light ${cormorant.variable} ${manrope.variable}`}
     >
       <body className="antialiased bg-background text-foreground">
         {children}
