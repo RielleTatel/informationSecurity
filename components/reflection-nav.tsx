@@ -1,10 +1,10 @@
 import Link from 'next/link'
 
 const reflections = [
-  { label: 'Reflection 01', href: '/reflection-1' },
-  { label: 'Reflection 02', href: '/reflection-2' },
-  { label: 'Reflection 03', href: '/reflection-3' },
-  { label: 'Reflection 04', href: '/reflection-4' },
+  { number: '01', title: 'Backburner', href: '/reflection-1' },
+  { number: '02', title: 'Robbers', href: '/reflection-2' },
+  { number: '03', title: 'Delicate', href: '/reflection-3' },
+  { number: '04', title: 'Thick And Thin', href: '/reflection-4' },
 ]
 
 export function ReflectionNav({ dark = false, current }: { dark?: boolean; current?: string }) {
@@ -13,9 +13,16 @@ export function ReflectionNav({ dark = false, current }: { dark?: boolean; curre
       <Link href="/" className="reflection-nav-mark">Gabrielle Tatel</Link>
       <span className="reflection-nav-course">CIT.017 <span aria-hidden="true">·</span> Information Security &amp; Assurance</span>
       <nav aria-label="Reflections" className="reflection-nav-links">
-        {reflections.map((reflection) => (
-          <Link key={reflection.href} href={reflection.href} className="reflection-nav-link" aria-current={reflection.label.endsWith(current ?? '--') ? 'page' : undefined}>
-            {reflection.label}
+        {reflections.map(reflection => (
+          <Link
+            key={reflection.href}
+            href={reflection.href}
+            className="reflection-nav-link"
+            title={reflection.title}
+            aria-label={`Reflection ${reflection.number}: ${reflection.title}`}
+            aria-current={reflection.number === current ? 'page' : undefined}
+          >
+            <span className="reflection-nav-word">Reflection </span>{reflection.number}
           </Link>
         ))}
       </nav>
