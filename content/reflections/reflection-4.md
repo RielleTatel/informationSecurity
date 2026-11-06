@@ -14,7 +14,9 @@ Our project asked us to look behind that familiarity. What we found surprised me
 
 My first reaction was a little bit of shock. The assessment described weaknesses that I had not previously known about, and some of the security practices seemed weaker than I had expected. It was uncomfortable to recognize that services I associated with routine university life could depend on arrangements that needed significant improvement.
 
-I was also concerned about services that, from what I had been told, were running older versions. My concern about a recent PHP vulnerability made this feel more urgent. However, our audit did not establish the deployed PHP version or verify that a particular PHP vulnerability affected CITS. The report left patch status incompletely established.
+I was also concerned about services that, from what I had been told, were running older versions. The timing made that concern feel urgent. In October 2026, two critical vulnerabilities in the PHP interpreter, known together as PHP2Shell (CVE-2026-109618 and CVE-2026-109619), were disclosed. They could allow an unauthenticated attacker to run code on a server that handles web requests with PHP, and exploitation attempts were reported even before patches were released. The PHP Project issued fixes for its supported versions, but PHP 8.1 and older are end-of-life and received only source-level backports instead of ready-to-install releases. A portal running on an older PHP version is exactly the kind of system a vulnerability like this can reach.
+
+However, our audit did not establish the deployed PHP version or verify that PHP2Shell affected CITS. The report left patch status incompletely established.
 
 That distinction matters. My concern was real, but it could not stand in for technical evidence.
 
@@ -44,7 +46,7 @@ I think a fair audit has to hold both parts of the picture together. Giving cred
 
 My immediate reaction to older services was that they should be updated. I still believe maintenance matters. What changed was my understanding of what an upgrade can require.
 
-I was told that upgrading components could break dependent services and cause errors in the portal. That explanation made me consider the consequences of a change from the perspective of the people responsible for keeping those services available.
+I was told that upgrading components could break dependent services and cause errors in the portal. That was difficult to hear while PHP2Shell was in the news, because for older installations the recommended fix was an upgrade to a supported version. That explanation made me consider the consequences of a change from the perspective of the people responsible for keeping those services available.
 
 An upgrade affects an existing system with its own dependencies and assumptions. If those relationships are not understood and tested, an intended improvement can interrupt the work that people need to complete.
 

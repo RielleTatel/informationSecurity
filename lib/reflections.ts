@@ -60,7 +60,7 @@ const reflections = {
     description: 'A personal reflection on the CITS audit project, the evidence behind its findings, and the work of sustaining dependable services.',
     theme: 'thick-and-thin',
     motif: 'Care is work we keep doing.',
-    source: 'CITS InfoSec Audit Report Draft (38-page PDF; assessment period: 11 October–3 November 2026), together with my personal account of the project. Group members: Donald Lee Novo and Resham Qhaleed Kadiri.',
+    source: 'CITS InfoSec Audit Report Draft (38-page PDF; assessment period: 11 October–3 November 2026), together with my personal account of the project. Group members: Donald Lee Novo and Resham Qhaleed Kadiri. Background on PHP2Shell (CVE-2026-109618 and CVE-2026-109619) from the PHP Project’s October 2026 security releases and published vendor advisories.',
     previous: { href: '/reflection-3', title: 'Delicate', number: '03' },
     next: { href: '/reflection-1', title: 'Backburner', number: '01' },
   },
