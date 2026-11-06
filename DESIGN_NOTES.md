@@ -2,7 +2,7 @@
 
 All four reflections share the original dark, cinematic vibe and the Robbers page structure (full-height hero, 720px reading column, one full-bleed feature band, big closing lines, sign-off, previous/next). Each page takes its own palette and signature element from its song:
 
-- **Backburner (NIKI)**: love left on low heat. Soot #0d0b08, ember #d4a574, gas-flame blue #5b7fa6. Italic Cormorant title over a small flickering burner ring; the CIA triad set as a three-column band; closes on "Protect first. Recover later—if you have to."
+- **Backburner (NIKI)**: love left on low heat. Soot #0d0b08, ember #d4a574, gas-flame blue #5b7fa6. Italic Cormorant title above a single large flickering flame; the CIA triad set as a ruled definition list inside the reading column; closes on "Protect first. Recover later—if you have to."
 - **Robbers (The 1975)**: unchanged burgundy and crimson theme with the twelve-threat panel.
 - **Delicate (Taylor Swift)**: fragile, glassy, after midnight. Midnight #0c0d1c, lilac #c7b6ef, blush #e7b8d0. Light-weight title on a frosted pane with a hairline crack, faint stars, and the section path drawn as a beaded thread.
 - **Thick And Thin (LANY)**: LA dusk, steady through everything. Night blue #0f1630, sunset pink #f3a8b8, haze blue #9cc0e6. Left-aligned Playfair title on a dusk gradient, a thick band and a thin line running together across the hero and repeated as section markers.

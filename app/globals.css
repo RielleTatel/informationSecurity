@@ -352,10 +352,11 @@
 @keyframes flame-outer { 0%, 100% { transform: scale(1, 1) skewX(0deg); } 30% { transform: scale(.97, 1.05) skewX(-2deg); } 65% { transform: scale(1.02, .96) skewX(1.5deg); } }
 @keyframes flame-inner { 0%, 100% { transform: scale(1, 1) skewX(0deg); } 40% { transform: scale(1.03, .94) skewX(2deg); } 75% { transform: scale(.97, 1.06) skewX(-1.5deg); } }
 @keyframes flame-core { 0%, 100% { transform: scale(1); opacity: .95; } 50% { transform: scale(1.04, .97); opacity: .8; } }
-.bb-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin: 3.5rem calc(50% - 50vw) 1rem; padding: 4rem max(1.5rem, calc(50vw - 540px)); background: var(--band); border-block: 1px solid var(--rule); }
-.bb-trio h3 { margin-top: 1rem; }
-.bb-trio p { font-size: 1rem; line-height: 1.8; }
-.bb-trio-flame { display: block; width: 10px; height: 18px; border-radius: 50% 50% 45% 45% / 65% 65% 35% 35%; background: linear-gradient(to top, #3d6fb0, #7aa6d8 50%, var(--accent)); }
+.bb-trio { margin: 3rem 0; border-top: 1px solid var(--rule); }
+.bb-trio > div { display: grid; grid-template-columns: 10.5rem 1fr; gap: 2rem; padding: 1.75rem 0; border-bottom: 1px solid var(--rule); }
+.bb-trio dt { color: var(--accent); font: italic 500 1.55rem/1.3 var(--font-cormorant); }
+.bb-trio dd { margin: 0; }
+.bb-trio dd p { font-size: 1.02rem; line-height: 1.8; }
 
 /* Delicate: fragile, glassy, after midnight. Thin type on a frosted pane with a hairline crack. */
 .paper--delicate { --bg: #0c0d1c; --band: #14152b; --ink: #ece9f8; --body: #cfcbe3; --soft: #9a96b6; --accent: #c7b6ef; --accent-2: #e7b8d0; --rule: rgb(230 227 245 / .14); }
@@ -399,7 +400,7 @@
 @media (max-width: 700px) {
   .paper-hero { padding-top: 4rem; }
   .paper-hero-meta { margin-bottom: 2.5rem; font-size: .75rem; }
-  .bb-trio { grid-template-columns: 1fr; gap: 1rem; padding-block: 3rem; }
+  .bb-trio > div { grid-template-columns: 1fr; gap: .4rem; }
   .dl-glass { width: 92vw; }
   .tt-lines { gap: 10px; margin-block: 2.5rem; }
   .tt-lines span:first-child { height: 12px; }

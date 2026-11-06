@@ -148,15 +148,14 @@ function ThemedPaper({ reflection }: { reflection: Reflection }) {
             <h2 id={section.id}>{section.title}</h2>
             {theme === 'backburner'
               ? segment(section.blocks).map((part, index) => part.kind === 'trio' ? (
-                  <div className="bb-trio" key={index}>
+                  <dl className="bb-trio" key={index}>
                     {part.items.map(item => (
                       <div key={item.title}>
-                        <span className="bb-trio-flame" aria-hidden="true" />
-                        <h3>{item.title}</h3>
-                        <Blocks blocks={item.blocks} />
+                        <dt>{item.title}</dt>
+                        <dd><Blocks blocks={item.blocks} /></dd>
                       </div>
                     ))}
-                  </div>
+                  </dl>
                 ) : <Blocks key={index} blocks={part.blocks} />)
               : <Blocks blocks={section.blocks} />}
           </section>
